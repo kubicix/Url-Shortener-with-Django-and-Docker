@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>URL Shortener</title>
+</head>
+<body>
+    <section id="urlbox">
+        <h1>Paste the URL to be shortened</h1>
+        <form method="post" action="{% url 'index' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div id="formbutton">
+                <input type="submit" value="Shorten URL">
+            </div>
+        </form>
+
+        <!-- Kısaltılmış URL'i gösteren bir alan -->
+        {% if shortened_url %}
+            <p>Shortened URL: <a href="{% url 'redirect_original' shortened_url.short_url %}">{{ shortened_url.short_url }}</a></p>
+        {% endif %}
+        
+        <p class="boxtextcenter">
+            ShortURL is a free tool to shorten URLs and generate short links<br>
+            URL shortener allows creating a shortened link making it easy to share
+        </p>
+    </section>
+</body>
+</html>
