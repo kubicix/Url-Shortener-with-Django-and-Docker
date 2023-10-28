@@ -17,8 +17,9 @@
 
         <!-- Kısaltılmış URL'i gösteren bir alan -->
         {% if shortened_url %}
-            <p>Shortened URL: <a href="{% url 'redirect_original' shortened_url.short_url %}">{{ shortened_url.short_url }}</a></p>
-        {% endif %}
+    <p>Shortened URL: <a href="{% url 'redirect_original' shortened_url.short_url %}">http://127.0.0.1:8000/{{ shortened_url.short_url }}</a></p>
+{% endif %}
+
         
         <p class="boxtextcenter">
             ShortURL is a free tool to shorten URLs and generate short links<br>
