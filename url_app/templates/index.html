@@ -3,10 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>URL Shortener</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .fa-copy {
+          cursor: pointer; /* İkon üzerine gelindiğinde pointer'ı devre dışı bırakır */
+        }
+      
+        .fa-copy:hover {
+          color: blue; /* Örnek bir renk değişimi */
+        }
+      </style>
 </head>
 <body>
     <section id="urlbox">
-        <h1>Paste the URL to be shortened</h1>
+        <h1>Url Shortener by Kubilay Birer</h1>
         <form method="post" action="{% url 'index' %}">
             {% csrf_token %}
             {{ form.as_p }}
@@ -17,7 +27,7 @@
 
         <!-- Kısaltılmış URL'i gösteren bir alan -->
         {% if shortened_url %}
-    <p>Shortened URL: <a href="{% url 'redirect_original' shortened_url.short_url %}">http://127.0.0.1:8000/{{ shortened_url.short_url }}</a></p>
+        <p>Shortened URL: <a id="copyLink" href="{% url 'redirect_original' shortened_url.short_url %}">http://127.0.0.1:8000/{{ shortened_url.short_url }}</a> <i class="fa-regular fa-copy fa-lg" id="copyIcon"></i></p>
 {% endif %}
 
         
@@ -27,4 +37,20 @@
         </p>
     </section>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var copyIcon = document.getElementById('copyIcon');
+        var copyLink = document.getElementById('copyLink');
+    
+        copyIcon.addEventListener('click', function() {
+            var textToCopy = copyLink.textContent;
+            navigator.clipboard.writeText(textToCopy).then(function() {
+                alert('Link copied to clipboard!');
+            }).catch(function(err) {
+                console.error('Unable to copy to clipboard', err);
+            });
+        });
+    });
+    </script>
+    
 </html>
